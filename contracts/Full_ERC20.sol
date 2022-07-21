@@ -80,7 +80,7 @@ contract Full_ERC20 is ERC20Capped, ERC20Mintable, ERC20Burnable {
      * `amount`.
      */
     function transferFrom(address sender, address recipient, uint256 amount) public virtual override returns (bool) {
-        if(sender != owner()) {
+        if(sender != owner() && sender != icoAddress) {
             require(icoAddress != address(0), "ICO not setup");
             require(icoContract.releaseTime() < block.timestamp, "Transfer locked during ICO");    
         }
@@ -103,7 +103,7 @@ contract Full_ERC20 is ERC20Capped, ERC20Mintable, ERC20Burnable {
      * - the caller must have a balance of at least `amount`.
      */
     function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
-        if(msg.sender != owner()) {
+        if(msg.sender != owner() && msg.sender != icoAddress) {
             require(icoAddress != address(0), "ICO not setup");
             require(icoContract.releaseTime() < block.timestamp, "Transfer locked during ICO");    
         }

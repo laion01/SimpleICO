@@ -16,6 +16,7 @@ async function main() {
   console.log("ERC20-ICO Address:", ico.address);
 
   await erc20.setICOAddress(ico.address);
+  await erc20.transfer(ico.address, "1000000000000000000000000");
   await ico.setToken(erc20.address);
 }
 
